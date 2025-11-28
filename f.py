@@ -189,5 +189,5 @@ except:
     print("TC-12 FAIL : Erreur inattendue lors du test")
 
 # -------------------- Fin du test --------------------
-input("Appuyez sur Enter pour fermer le navigateur...")
+
 driver.close()
