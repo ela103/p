@@ -1,22 +1,31 @@
 pipeline {
     agent any
 
+    environment {
+        // Tu peux ajouter ici des variables d'environnement si nécessaire
+        WORKSPACE_DIR = "${env.WORKSPACE}"
+    }
+
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Repository') {
             steps {
-                git 'https://github.com/ela103/p.git'
+                // Cloner ton repo GitHub
+                git url: 'https://github.com/ela103/p.git', branch: 'master'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install selenium'
+                // Installer Selenium si nécessaire
+                bat 'python -m pip install --upgrade pip'
+                bat 'pip install selenium'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'python3 f.py'
+                // Exécuter ton script Python
+                bat 'python f.py'
             }
         }
     }
@@ -26,10 +35,12 @@ pipeline {
             echo 'Pipeline terminé !'
         }
         success {
-            echo 'Tous les tests ont réussi.'
+            echo 'Tous les tests ont été exécutés avec succès.'
         }
         failure {
-            echo 'Certains tests ont échoué.'
+            echo 'Certains tests ont échoué. Vérifie le log.'
         }
     }
 }
+
+
